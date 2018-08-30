@@ -1,8 +1,8 @@
 # **************************************************************************
 # *
-# * Authors:     J.M. De la Rosa Trevin (jmdelarosa@cnb.csic.es)
+# * Authors:     J.M. De la Rosa Trevin (delarosatrevin@scilifelab.se)
 # *
-# * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
+# * SciLifeLab, Stockholm University
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -25,9 +25,13 @@
 # **************************************************************************
 
 from pyworkflow.tests import BaseTest, DataSet, setupTestProject
-from pyworkflow.em.packages.xmipp3 import XmippProtPreprocessMicrographs
+from pyworkflow.utils import importFromPlugin
 from pyworkflow.em.protocol import ProtImportMicrographs
-from pyworkflow.em.packages.bamfordlab import ProtEthanPicker
+
+from bamfordlab.protocols import ProtEthanPicker
+
+XmippProtPreprocessMicrographs = importFromPlugin('xmipp3.protocols',
+                                                  'XmippProtPreprocessMicrographs')
 
 
 class TestProtEthanPicking(BaseTest):
@@ -37,7 +41,6 @@ class TestProtEthanPicking(BaseTest):
         cls.ds = DataSet.getDataSet('xmipp_tutorial')
 
     def test_workflow(self):
-        from itertools import izip
         # First, import a set of micrographs
         print "Importing BPV mics..."
         protImport = self.newProtocol(ProtImportMicrographs,
@@ -65,4 +68,3 @@ class TestProtEthanPicking(BaseTest):
         self.launchProtocol(protEthan)
         self.assertIsNotNone(protEthan.outputCoordinates,
                              "There was a problem picking with ETHAN")
-        

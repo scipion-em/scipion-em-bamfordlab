@@ -1,8 +1,8 @@
 # **************************************************************************
 # *
-# * Authors:     J.M. De la Rosa Trevin (jmdelarosa@cnb.csic.es)
+# * Authors:     J.M. De la Rosa Trevin (delarosatrevin@scilifelab.se)
 # *
-# * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
+# * SciLifeLab, Stockholm University
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ from pyworkflow.em.wizard import EmWizard
 from pyworkflow.em import CoordinatesObjectView
 from pyworkflow.utils import makePath, cleanPath, readProperties
 
-from protocol_ethan_picking import ProtEthanPicker
+from bamfordlab.protocols import ProtEthanPicker
 
 
 #===============================================================================
@@ -39,7 +39,9 @@ from protocol_ethan_picking import ProtEthanPicker
 #===============================================================================
 
 class DogPickerWizard(EmWizard):
-    _targets = [(ProtEthanPicker, ['radius'])]
+    _targets = []
+    # wizard is not ready
+    #_targets = [(ProtEthanPicker, ['radius'])]
 
     def show(self, form):
         autopickProt = form.protocol
@@ -88,4 +90,3 @@ class DogPickerWizard(EmWizard):
         myprops = readProperties(dogpickerProps)
         form.setVar('diameter', myprops['diameter.value'])
         form.setVar('threshold', myprops['threshold.value'])
-

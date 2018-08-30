@@ -28,18 +28,19 @@ import os
 
 import pyworkflow.utils as pwutils
 import pyworkflow.protocol.params as params
+from pyworkflow.protocol.constants import LEVEL_ADVANCED
 from pyworkflow.em.data import Coordinate
-from pyworkflow.em.packages.bamfordlab import ETHAN_HOME
 from pyworkflow.em.protocol import ProtParticlePickingAuto
 from pyworkflow.em.convert import ImageHandler
 import pyworkflow.em.metadata as md
+
+import bamfordlab
 
 
 class ProtEthanPicker(ProtParticlePickingAuto):
     """
     ETHAN is a program for automatic detection of spherical particles from
     electron micrographs.
-    This protocol wraps the ETHAN command line program.
 
     The ETHAN software was written at the Department of Computer Science of
     University of Helsinki, Finland by Teemu Kivioja.
@@ -47,55 +48,54 @@ class ProtEthanPicker(ProtParticlePickingAuto):
 
     _label = 'ethan picker'
 
-    #--------------------------- DEFINE param functions ------------------------
+    #--------------------------- DEFINE param functions -----------------------
     def _defineParams(self, form):
 
         ProtParticlePickingAuto._defineParams(self, form)
+
         form.addParam('radius', params.IntParam,
                       label='Radius of particle (px)')
-
         form.addParam('height', params.FloatParam, default=0.5,
                       label="Min. height",
                       help='The minimum height of the virus peak compared to '
                            'the average peak.')
-
         form.addParam('squareWidth', params.FloatParam, default=1.5,
                       label="Square width",
                       help='Minimum distance between two viruses is:\n'
                            '2 * SQUARE_WIDTH_PARAM * RADIUS.')
-
         form.addParam('ringWidth', params.FloatParam, default=1.2,
                       label="Ring width",
                       help='Width of the ring in ring filter is: \n'
                            'RING_WIDTH_PARAM * RADIUS - RADIUS.')
-
         form.addParam('dist', params.FloatParam, default=0.1,
                       label="Distance",
                       help='Distance which the peak can move in x or y '
                            'direction during center refinement is: \n'
                            'DIST_PARAM * RADIUS.')
-
         form.addParam('reduction', params.IntParam, default=0,
                       label="Reduction",
                       help='REDUCTION_PARAM * REDUCTION_PARAM pixels are '
                            'averaged before filtering. The value has to be '
                            'integer. Special value 0 means that the program '
                            'determines the parameter.')
-
         form.addParam('doRefine', params.BooleanParam, default=True,
+                      expertLevel=LEVEL_ADVANCED,
                       label="Refine particle centers?",
                       help='')
         form.addParam('doSectorTest', params.BooleanParam, default=True,
+                      expertLevel=LEVEL_ADVANCED,
                       label="Perform sector test?",
                       help='')
         form.addParam('doHeightTest', params.BooleanParam, default=True,
+                      expertLevel=LEVEL_ADVANCED,
                       label="Perform height test?",
                       help='')
         form.addParam('doDistanceTest', params.BooleanParam, default=True,
+                      expertLevel=LEVEL_ADVANCED,
                       label="Perform peak pair distance test?",
                       help='')
 
-    #--------------------------- STEPS functions -------------------------------
+    #--------------------------- STEPS functions ------------------------------
     def _pickMicrograph(self, mic, radius):
         micFn = mic.getFileName()
         micDir = self._getMicDir(micFn)
@@ -112,9 +112,8 @@ class ProtEthanPicker(ProtParticlePickingAuto):
         # selected by the user
         self.writeConfigFile(os.path.join(micDir, fnMicCfg))
         # Run ethan program with the required arguments
-        program = self.getProgram()
         args = "%s %s %s %s" % (radius, fnMicBase, fnPosBase, fnMicCfg)
-        self.runJob(program, args, cwd=micDir)
+        self.runJob(bamfordlab.Plugin.getProgram(), args, cwd=micDir)
 
         # Clean temporary micrograph
         pwutils.cleanPath(fnMicFull)
@@ -122,35 +121,12 @@ class ProtEthanPicker(ProtParticlePickingAuto):
     def createOutputStep(self):
         pass
 
-    # --------------------------- INFO functions -------------------------------
-    def _summary(self):
-        summary = []
-        return summary
-
-    def _citations(self):
-        return []
-
-    def _methods(self):
-        methodsMsgs = []
-        return methodsMsgs
-
+    # --------------------------- INFO functions ------------------------------
     def _validate(self):
         errors = []
-
-        program = self.getProgram()
-        if not os.path.exists(program):
-            errors.append("Program: '%s' was not found. " % program)
-            errors.append("Check that you have installed ethan picker by: ")
-            errors.append("   ./scipion install ethan ")
-            errors.append("And the configuration file "
-                          "~/.config/scipion/scipion.conf has the proper value "
-                          "of ETHAN_HOME variable.")
         return errors
 
-    #--------------------------- UTILS functions -------------------------------
-    def getProgram(self):
-        return os.path.join(os.environ.get(ETHAN_HOME), 'ethan')
-
+    #--------------------------- UTILS functions ------------------------------
     def _getMicDir(self, micFn):
         return self._getExtraPath()
 
@@ -158,8 +134,7 @@ class ProtEthanPicker(ProtParticlePickingAuto):
         return pwutils.replaceBaseExt(micFn, 'txt')
 
     def _getPickArgs(self):
-        """ In this case, only return the radius as argument.
-        """
+        """ In this case, only return the radius as argument. """
         return [self.radius.get()]
 
     def readCoordsFromMics(self, workingDir, micList, coordSet):
@@ -228,5 +203,3 @@ HEIGHT_TEST %(heightTest)s
 DISTANCE_TEST %(distanceTest)s
         """ % argsDict)
         f.close()
-
-

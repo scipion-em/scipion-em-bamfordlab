@@ -1,8 +1,8 @@
 # **************************************************************************
 # *
-# * Authors:     J.M. De la Rosa Trevin (jmdelarosa@cnb.csic.es)
+# *  Authors:     Grigory Sharov (gsharov@mrc-lmb.cam.ac.uk)
 # *
-# * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
+# * MRC Laboratory of Molecular Biology (MRC-LMB)
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -23,33 +23,6 @@
 # *  e-mail address 'scipion@cnb.csic.es'
 # *
 # **************************************************************************
-import os
-
-from pyworkflow.utils import commandExists
-
-_logo = None
 
 ETHAN_HOME = 'ETHAN_HOME'
 ETHAN = 'ethan'
-
-from bibtex import _bibtex
-from protocol_ethan_picking import ProtEthanPicker
-# from wizard import DogPickerWizard    --> Not ready yet: uncomment when ready.
-
-
-_references = ['Kivioja2000']
-
-
-def validateInstallation():
-    """ This function will be used to check if RELION is properly installed. """
-    missingPaths = []
-
-    if not (os.path.exists(os.environ.get(ETHAN_HOME))
-            or commandExists(ETHAN)):
-        missingPaths.append("%s or %s: %s" % (ETHAN_HOME, ETHAN,
-                                              "Ethan not found in the system"))
-
-    if missingPaths:
-        return ["Missing variables:"] + missingPaths
-    else:
-        return [] # No errors

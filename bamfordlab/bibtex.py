@@ -1,8 +1,9 @@
+# coding: latin-1
 # **************************************************************************
 # *
-# * Authors:     J.M. De la Rosa Trevin (jmdelarosa@cnb.csic.es)
+# * Authors:     J.M. De la Rosa Trevin (delarosatrevin@scilifelab.se)
 # *
-# * Unidad de  Bioinformatica of Centro Nacional de Biotecnologia , CSIC
+# * SciLifeLab, Stockholm University
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -24,7 +25,7 @@
 # *
 # **************************************************************************
 
-_bibtexStr = """
+"""
 
 @article{Kivioja2000,
 title = "Local Average Intensity-Based Method for Identifying Spherical Particles in Electron Micrographs",
@@ -43,11 +44,7 @@ keywords = "cryoelectron microscopy",
 keywords = "automated object detection",
 keywords = "image processing",
 keywords = "pattern matching software",
-abstract = "Amethod is presented that reliably detects spherical viruses from a wide variety of noisy low-contrast electron micrographs. Such detection is one of the first image analysis steps in the computer-aided reconstruction of three-dimensional density distribution models of viruses. Particle detection is based on the comparison of intensity in a circular area and in the surrounding ring followed by a number of tests to validate the potential particles. The only required input from the user in addition to the micrograph is an approximate radius of the particle. The method has been implemented as program ETHAN that has been tested for several different data sets. ETHAN has also successfully been used to detect DNA-less virus particles for an actual reconstruction."
+abstract = "A method is presented that reliably detects spherical viruses from a wide variety of noisy low-contrast electron micrographs. Such detection is one of the first image analysis steps in the computer-aided reconstruction of three-dimensional density distribution models of viruses. Particle detection is based on the comparison of intensity in a circular area and in the surrounding ring followed by a number of tests to validate the potential particles. The only required input from the user in addition to the micrograph is an approximate radius of the particle. The method has been implemented as program ETHAN that has been tested for several different data sets. ETHAN has also successfully been used to detect DNA-less virus particles for an actual reconstruction."
 }
 
 """
-
-from pyworkflow.utils import parseBibTex
-
-_bibtex = parseBibTex(_bibtexStr)  
