@@ -31,7 +31,7 @@ import pyworkflow.em
 from .constants import ETHAN, ETHAN_HOME
 
 
-_logo = None
+_logo = "bamford_logo.gif"
 _references =['Kivioja2000']
 
 
