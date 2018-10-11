@@ -68,7 +68,6 @@ class Plugin(pyworkflow.em.Plugin):
 
     @classmethod
     def defineBinaries(cls, env):
-        # Add dogpicker
         env.addPackage('ethan', version='1.2',
                        tar='ethan-1.2.tgz',
                        commands=[('make', 'ethan')],
