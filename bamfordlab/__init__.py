@@ -27,8 +27,9 @@
 import os
 
 import pyworkflow.em
+from pyworkflow.utils import Environ
 
-from .constants import ETHAN, ETHAN_HOME
+from bamfordlab.constants import ETHAN, ETHAN_HOME, V1_2
 
 
 _logo = "bamford_logo.gif"
@@ -38,15 +39,40 @@ _references =['Kivioja2000']
 class Plugin(pyworkflow.em.Plugin):
     _homeVar = ETHAN_HOME
     _pathVars = [ETHAN_HOME]
-    _supportedVersions = ['1.2']
+    _supportedVersions = [V1_2]
 
     @classmethod
     def _defineVariables(cls):
         cls._defineEmVar(ETHAN_HOME, 'ethan-1.2')
 
     @classmethod
+    def getEnviron(cls):
+        """ Setup the environment variables needed to launch Ethan. """
+        environ = Environ(os.environ)
+
+        environ.update({
+            'PATH': Plugin.getHome(),
+            'LD_LIBRARY_PATH': str.join(cls.getHome(), 'ethanlib')
+                               + ":" + cls.getHome(),
+        }, position=Environ.BEGIN)
+
+        return environ
+
+    @classmethod
     def getProgram(cls):
-        return os.path.join(os.environ[ETHAN_HOME], ETHAN)
+        return os.path.join(Plugin.getHome(), ETHAN)
+
+    @classmethod
+    def isVersionActive(cls):
+        return cls.getActiveVersion().startswith(V1_2)
+
+    @classmethod
+    def defineBinaries(cls, env):
+        # Add dogpicker
+        env.addPackage('ethan', version='1.2',
+                       tar='ethan-1.2.tgz',
+                       commands=[('make', 'ethan')],
+                       default=True)
 
 
 pyworkflow.em.Domain.registerPlugin(__name__)
