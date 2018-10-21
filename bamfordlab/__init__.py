@@ -51,10 +51,8 @@ class Plugin(pyworkflow.em.Plugin):
         environ = Environ(os.environ)
 
         environ.update({
-            'PATH': Plugin.getHome(),
-            'LD_LIBRARY_PATH': str.join(cls.getHome(), 'ethanlib')
-                               + ":" + cls.getHome(),
-        }, position=Environ.BEGIN)
+            'PATH': Plugin.getHome()},
+            position=Environ.BEGIN)
 
         return environ
 
