@@ -26,3 +26,6 @@
 
 ETHAN_HOME = 'ETHAN_HOME'
 ETHAN = 'ethan'
+
+#Suported Versions
+V1_2 = 'V1_2'
