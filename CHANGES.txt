@@ -1,2 +1,2 @@
-21-August-2018 - First version of plugin version
+1.0.0 - First version of plugin
 

@@ -39,7 +39,7 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 # Arguments marked as "Required" below must be included for upload to PyPI.
@@ -65,12 +65,12 @@ setup(
     # For a discussion on single-sourcing the version across setup.py and the
     # project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='1.0.0b1',  # Required
+    version='1.0.1',  # Required
 
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#summary
-    description='Bamfordlab  ready to use in scipion.',  # Required
+    description='Plugin to use Bamfordlab programs within the Scipion framework',  # Required
 
     # This is an optional longer description of your project that represents
     # the body of text which users will see when they visit PyPI.
@@ -90,39 +90,39 @@ setup(
 
     # This should be your name or the name of the organization which owns the
     # project.
-    author='I2PC',  # Optional
+    author='J.M. De la Rosa Trevin',  # Optional
 
     # This should be a valid email address corresponding to the author listed
     # above.
-    author_email='scipion@cnb.csic.es',  # Optional
+    author_email='delarosatrevin@scilifelab.se',  # Optional
 
     # Classifiers help users find your project by categorizing it.
     #
     # For a list of valid classifiers, see
     # https://pypi.python.org/pypi?%3Aaction=list_classifiers
-    #classifiers=[  # Optional
+    classifiers=[  # Optional
         # How mature is this project? Common values are
         #   3 - Alpha
         #   4 - Beta
         #   5 - Production/Stable
-     #   'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
 
         # Indicate who your project is intended for
      #   'Intended Audience :: Users',
 
         # Pick your license as you wish
-     #   'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
 
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
-     #   'Programming Language :: Python :: 2.7'
-    #],
+        'Programming Language :: Python :: 2.7'
+    ],
 
     # This field adds keywords for your project which will appear on the
     # project page. What does your project relate to?
     #
     # Note that this is a string of words separated by whitespace, not a list.
-    keywords='scipion cryoem imageprocessing scipion-1.2',  # Optional
+    keywords='scipion electron-microscopy cryo-em structural-biology image-processing',  # Optional
 
     # You can just specify package directories manually here if your project is
     # simple. Or you can use find_packages().
@@ -185,4 +185,8 @@ setup(
     #        'sample=sample:main',
     #    ],
     #},
+    project_urls={  # Optional
+        'Bug Reports': 'https://github.com/scipion-em/scipion-em-bamfordlab/issues',
+        'Source': 'https://github.com/scipion-em/scipion-em-bamfordlab/',
+    },
 )
