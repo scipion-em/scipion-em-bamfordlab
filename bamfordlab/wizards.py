@@ -38,55 +38,56 @@ from bamfordlab.protocols import ProtEthanPicker
 # PICKER
 #===============================================================================
 
-class DogPickerWizard(EmWizard):
-    _targets = []
-    # wizard is not ready
-    #_targets = [(ProtEthanPicker, ['radius'])]
-
-    def show(self, form):
-        autopickProt = form.protocol
-        micSet = autopickProt.getInputMicrographs()
-        if not micSet:
-            print 'must specify input micrographs'
-            return
-        project = autopickProt.getProject()
-        micfn = micSet.getFileName()
-        coordsDir = project.getTmpPath(micSet.getName())
-        cleanPath(coordsDir)
-        makePath(coordsDir)
-        # Get current values of the properties
-#         micfn = os.path.join(coordsDir, 'micrographs.xmd')
-#         writeSetOfMicrographs(micSet, micfn)
-        dogpickerProps = os.path.join(coordsDir, 'picker.conf')
-        f = open(dogpickerProps, "w")
-
-        args = {
-          "dogpicker" : os.path.join(os.environ['DOGPICKER_HOME'], "ApDogPicker.py"),
-          "convert" : pw.join('apps', 'pw_convert.py'),
-          'coordsDir': coordsDir,
-          'micsSqlite': micSet.getFileName(),
-          "diameter": autopickProt.diameter,
-          "threshold": autopickProt.threshold,
-          "apix": micSet.getSamplingRate()
-          }
-
-
-        f.write("""
-        parameters = diameter,threshold
-        diameter.value = %(diameter)s
-        diameter.label = Diameter
-        diameter.help = some help
-        threshold.value =  %(threshold)s
-        threshold.label = Threshold
-        threshold.help = some help
-        autopickCommand = %(dogpicker)s  --thresh=%%(threshold) --diam=%%(diameter) --apix=%(apix)s  --image=%%(micrograph) --outfile=%(coordsDir)s/%%(micrographName).txt
-        convertCommand = %(convert)s --coordinates --from dogpicker --to xmipp --input  %(micsSqlite)s --output %(coordsDir)s
-        """ % args)
-        f.close()
-        process = CoordinatesObjectView(project, micfn, coordsDir, autopickProt,
-                                        mode=CoordinatesObjectView.MODE_AUTOMATIC,
-                                        pickerProps=dogpickerProps).show()
-        process.wait()
-        myprops = readProperties(dogpickerProps)
-        form.setVar('diameter', myprops['diameter.value'])
-        form.setVar('threshold', myprops['threshold.value'])
+# Not ready yet
+# class BamfordDogPickerWizard(EmWizard):
+#     _targets = []
+#     # wizard is not ready
+#     #_targets = [(ProtEthanPicker, ['radius'])]
+#
+#     def show(self, form):
+#         autopickProt = form.protocol
+#         micSet = autopickProt.getInputMicrographs()
+#         if not micSet:
+#             print 'must specify input micrographs'
+#             return
+#         project = autopickProt.getProject()
+#         micfn = micSet.getFileName()
+#         coordsDir = project.getTmpPath(micSet.getName())
+#         cleanPath(coordsDir)
+#         makePath(coordsDir)
+#         # Get current values of the properties
+# #         micfn = os.path.join(coordsDir, 'micrographs.xmd')
+# #         writeSetOfMicrographs(micSet, micfn)
+#         dogpickerProps = os.path.join(coordsDir, 'picker.conf')
+#         f = open(dogpickerProps, "w")
+#
+#         args = {
+#           "dogpicker" : os.path.join(os.environ['DOGPICKER_HOME'], "ApDogPicker.py"),
+#           "convert" : pw.join('apps', 'pw_convert.py'),
+#           'coordsDir': coordsDir,
+#           'micsSqlite': micSet.getFileName(),
+#           "diameter": autopickProt.diameter,
+#           "threshold": autopickProt.threshold,
+#           "apix": micSet.getSamplingRate()
+#           }
+#
+#
+#         f.write("""
+#         parameters = diameter,threshold
+#         diameter.value = %(diameter)s
+#         diameter.label = Diameter
+#         diameter.help = some help
+#         threshold.value =  %(threshold)s
+#         threshold.label = Threshold
+#         threshold.help = some help
+#         autopickCommand = %(dogpicker)s  --thresh=%%(threshold) --diam=%%(diameter) --apix=%(apix)s  --image=%%(micrograph) --outfile=%(coordsDir)s/%%(micrographName).txt
+#         convertCommand = %(convert)s --coordinates --from dogpicker --to xmipp --input  %(micsSqlite)s --output %(coordsDir)s
+#         """ % args)
+#         f.close()
+#         process = CoordinatesObjectView(project, micfn, coordsDir, autopickProt,
+#                                         mode=CoordinatesObjectView.MODE_AUTOMATIC,
+#                                         pickerProps=dogpickerProps).show()
+#         process.wait()
+#         myprops = readProperties(dogpickerProps)
+#         form.setVar('diameter', myprops['diameter.value'])
+#         form.setVar('threshold', myprops['threshold.value'])
