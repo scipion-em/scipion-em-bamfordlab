@@ -6,4 +6,4 @@ The ETHAN software was written at the Department of Computer Science of Universi
 
 Supported versions of Ethan: 1.2
 
-![build status](http://heisenberg.cnb.csic.es:9980/badges/bamfordlab_devel.svg "Build status")
+![build status](http://scipion-test.cnb.csic.es:9980/badges/bamfordlab_devel.svg "Build status")
