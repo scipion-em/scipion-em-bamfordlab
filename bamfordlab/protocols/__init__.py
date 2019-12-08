@@ -24,4 +24,4 @@
 # *
 # **************************************************************************
 
-from protocol_ethan_picking import ProtEthanPicker
+from .protocol_ethan_picking import ProtEthanPicker

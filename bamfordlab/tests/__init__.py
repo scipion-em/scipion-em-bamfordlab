@@ -1,2 +1,2 @@
 
-from test_protocol_ethan import TestProtEthanPicking
+from .test_protocol_ethan import TestProtEthanPicking

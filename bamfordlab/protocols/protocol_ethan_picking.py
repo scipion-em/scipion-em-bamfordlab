@@ -29,10 +29,10 @@ import os
 import pyworkflow.utils as pwutils
 import pyworkflow.protocol.params as params
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
-from pyworkflow.em.data import Coordinate
-from pyworkflow.em.protocol import ProtParticlePickingAuto
-from pyworkflow.em.convert import ImageHandler
-import pyworkflow.em.metadata as md
+from pwem.objects import Coordinate
+from pwem.protocols import ProtParticlePickingAuto
+from pwem.convert import ImageHandler
+import pwem.metadata as md
 
 import bamfordlab
 
@@ -154,7 +154,7 @@ class ProtEthanPicker(ProtParticlePickingAuto):
                     coord.setMicrograph(mic)
                     coordSet.append(coord)
             else:
-                print "Coordinate file '%s' not found. " % coordFile
+                print("Coordinate file '%s' not found. " % coordFile)
 
     def writeConfigFile(self, configFn):
         f = open(configFn, 'w')

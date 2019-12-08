@@ -26,7 +26,7 @@
 
 import os
 
-import pyworkflow.em
+import pwem
 from pyworkflow.utils import Environ
 
 from bamfordlab.constants import ETHAN, ETHAN_HOME, V1_2
@@ -36,7 +36,7 @@ _logo = "bamford_logo.gif"
 _references =['Kivioja2000']
 
 
-class Plugin(pyworkflow.em.Plugin):
+class Plugin(pwem.Plugin):
     _homeVar = ETHAN_HOME
     _pathVars = [ETHAN_HOME]
     _supportedVersions = [V1_2]
@@ -72,4 +72,4 @@ class Plugin(pyworkflow.em.Plugin):
                        default=True)
 
 
-pyworkflow.em.Domain.registerPlugin(__name__)
+pwem.Domain.registerPlugin(__name__)

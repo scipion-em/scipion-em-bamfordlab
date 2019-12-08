@@ -27,8 +27,8 @@
 import os
 
 import pyworkflow as pw
-from pyworkflow.em.wizard import EmWizard
-from pyworkflow.em.viewers import CoordinatesObjectView
+from pwem.wizards import EmWizard
+from pwem.viewers import CoordinatesObjectView
 from pyworkflow.utils import makePath, cleanPath, readProperties
 
 from bamfordlab.protocols import ProtEthanPicker
