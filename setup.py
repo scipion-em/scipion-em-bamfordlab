@@ -189,4 +189,7 @@ setup(
         'Bug Reports': 'https://github.com/scipion-em/scipion-em-bamfordlab/issues',
         'Source': 'https://github.com/scipion-em/scipion-em-bamfordlab/',
     },
+    entry_points={
+        'pyworkflow.plugin': 'bamfordlab = bamfordlab'
+    },
 )

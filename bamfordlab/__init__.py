@@ -70,6 +70,3 @@ class Plugin(pwem.Plugin):
                        tar='ethan-1.2.tgz',
                        commands=[('make', 'ethan')],
                        default=True)
-
-
-pwem.Domain.registerPlugin(__name__)
