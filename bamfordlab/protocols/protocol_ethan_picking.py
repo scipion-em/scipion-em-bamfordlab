@@ -31,8 +31,8 @@ import pyworkflow.protocol.params as params
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
 from pwem.objects import Coordinate
 from pwem.protocols import ProtParticlePickingAuto
-from pwem.convert import ImageHandler
-import pwem.metadata as md
+from pwem.emlib.image import ImageHandler
+import pwem.emlib.metadata as md
 
 import bamfordlab
 
