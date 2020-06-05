@@ -6,7 +6,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -25,12 +25,12 @@
 # **************************************************************************
 
 from pyworkflow.tests import BaseTest, DataSet, setupTestProject
-from pyworkflow.utils import importFromPlugin
-from pyworkflow.em.protocol import ProtImportMicrographs
+from pwem import Domain
+from pwem.protocols import ProtImportMicrographs
 
 from bamfordlab.protocols import ProtEthanPicker
 
-XmippProtPreprocessMicrographs = importFromPlugin('xmipp3.protocols',
+XmippProtPreprocessMicrographs = Domain.importFromPlugin('xmipp3.protocols',
                                                   'XmippProtPreprocessMicrographs')
 
 
@@ -42,7 +42,7 @@ class TestProtEthanPicking(BaseTest):
 
     def test_workflow(self):
         # First, import a set of micrographs
-        print "Importing BPV mics..."
+        print("Importing BPV mics...")
         protImport = self.newProtocol(ProtImportMicrographs,
                                       filesPath=self.ds.getFile('micrographs'),
                                       filesPattern='BPV*mrc',
@@ -51,7 +51,7 @@ class TestProtEthanPicking(BaseTest):
         self.assertIsNotNone(protImport.outputMicrographs,
                              "There was a problem with the import")
 
-        print "Downsampling..."
+        print("Downsampling...")
         protDownsampling = self.newProtocol(XmippProtPreprocessMicrographs,
                                             doDownsample=True, downFactor=5,
                                             doCrop=False, runMode=1,
@@ -62,7 +62,7 @@ class TestProtEthanPicking(BaseTest):
                              "There was a problem with the downsampling")
 
         # Estimate CTF on the downsampled micrographs
-        print "Picking with ETHAN..."
+        print("Picking with ETHAN...")
         protEthan = self.newProtocol(ProtEthanPicker, radius=50)
         protEthan.inputMicrographs.set(protDownsampling.outputMicrographs)
         self.launchProtocol(protEthan)

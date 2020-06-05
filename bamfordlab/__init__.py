@@ -6,7 +6,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -26,7 +26,7 @@
 
 import os
 
-import pyworkflow.em
+import pwem
 from pyworkflow.utils import Environ
 
 from bamfordlab.constants import ETHAN, ETHAN_HOME, V1_2
@@ -36,7 +36,7 @@ _logo = "bamford_logo.gif"
 _references =['Kivioja2000']
 
 
-class Plugin(pyworkflow.em.Plugin):
+class Plugin(pwem.Plugin):
     _homeVar = ETHAN_HOME
     _pathVars = [ETHAN_HOME]
     _supportedVersions = [V1_2]
@@ -70,6 +70,3 @@ class Plugin(pyworkflow.em.Plugin):
                        tar='ethan-1.2.tgz',
                        commands=[('make', 'ethan')],
                        default=True)
-
-
-pyworkflow.em.Domain.registerPlugin(__name__)

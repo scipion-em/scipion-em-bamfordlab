@@ -6,7 +6,7 @@
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
-# * the Free Software Foundation; either version 2 of the License, or
+# * the Free Software Foundation; either version 3 of the License, or
 # * (at your option) any later version.
 # *
 # * This program is distributed in the hope that it will be useful,
@@ -29,10 +29,10 @@ import os
 import pyworkflow.utils as pwutils
 import pyworkflow.protocol.params as params
 from pyworkflow.protocol.constants import LEVEL_ADVANCED
-from pyworkflow.em.data import Coordinate
-from pyworkflow.em.protocol import ProtParticlePickingAuto
-from pyworkflow.em.convert import ImageHandler
-import pyworkflow.em.metadata as md
+from pwem.objects import Coordinate
+from pwem.protocols import ProtParticlePickingAuto
+from pwem.emlib.image import ImageHandler
+import pwem.emlib.metadata as md
 
 import bamfordlab
 
@@ -154,7 +154,7 @@ class ProtEthanPicker(ProtParticlePickingAuto):
                     coord.setMicrograph(mic)
                     coordSet.append(coord)
             else:
-                print "Coordinate file '%s' not found. " % coordFile
+                print("Coordinate file '%s' not found. " % coordFile)
 
     def writeConfigFile(self, configFn):
         f = open(configFn, 'w')
