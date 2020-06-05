@@ -1,2 +1,1 @@
-
 from .test_protocol_ethan import TestProtEthanPicking
