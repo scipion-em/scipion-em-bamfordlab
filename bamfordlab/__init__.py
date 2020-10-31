@@ -32,6 +32,7 @@ from pyworkflow.utils import Environ
 from bamfordlab.constants import ETHAN, ETHAN_HOME, V1_2
 
 
+__version__ = '3.0.0'
 _logo = "bamford_logo.gif"
 _references =['Kivioja2000']
 
@@ -40,6 +41,7 @@ class Plugin(pwem.Plugin):
     _homeVar = ETHAN_HOME
     _pathVars = [ETHAN_HOME]
     _supportedVersions = [V1_2]
+    _url = "https://github.com/scipion-em/scipion-em-bamfordlab"
 
     @classmethod
     def _defineVariables(cls):
