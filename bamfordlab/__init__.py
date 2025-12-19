@@ -27,6 +27,7 @@
 import os
 
 import pwem
+from pyworkflow import SPA
 from pyworkflow.utils import Environ
 
 from bamfordlab.constants import ETHAN, ETHAN_HOME, V1_2
@@ -42,6 +43,7 @@ class Plugin(pwem.Plugin):
     _pathVars = [ETHAN_HOME]
     _supportedVersions = [V1_2]
     _url = "https://github.com/scipion-em/scipion-em-bamfordlab"
+    _processingField = [SPA]
 
     @classmethod
     def _defineVariables(cls):
